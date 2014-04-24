@@ -10,6 +10,7 @@
 "store"         return 'STORE';
 "load"          return 'LOAD';
 "jumpgt"        return 'JUMPGT';
+"printstack"    return 'PRINTSTACK';
 <<EOF>>         return 'EOF';
 
 /lex
@@ -19,7 +20,7 @@
 %%
 expressions 
     : e EOF
-        {console.log($1); return $1;}
+        {}
     | EOF
         {}
     ;
@@ -39,4 +40,6 @@ e
         {$$ = Number(yytext);}
     | 'STRING'
         {$$ = yytext.replace(/"/g, '');}
+    | 'PRINTSTACK'
+        {$$ = yy.printstack();}
     ;
