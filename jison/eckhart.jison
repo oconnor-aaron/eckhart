@@ -7,9 +7,9 @@
 \"(\\.|[^"])*\" return 'STRING';
 "push"          return 'PUSH';
 "add"           return 'ADD';
-"store"         return 'STORE';
-"load"          return 'LOAD';
-"jumpgt"        return 'JUMPGT';
+"jeq"           return 'JEQ';
+"jne"           return 'JNE';
+"dup"           return 'DUP';
 "printstack"    return 'PRINTSTACK';
 <<EOF>>         return 'EOF';
 
@@ -28,14 +28,14 @@ expressions
 e
     : 'PUSH' e
         {$$ = yy.push($2);}
-    | 'STORE' e
-        {$$ = yy.store($2);}
-    | 'LOAD' e
-        {$$ = yy.load($2);}
-    | 'JUMPGT' e
-        {$$ = yy.jumpGt($2);}
+    | 'JEQ' e
+        {$$ = yy.jeq($2);}
     | 'ADD'
         {$$ = yy.add();}
+    | 'DUP'
+        {$$ = yy.dup();}
+    | 'JNE' e
+        {$$ = yy.jne($2);}
     | 'NUMBER'
         {$$ = Number(yytext);}
     | 'STRING'

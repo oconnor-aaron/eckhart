@@ -74,9 +74,9 @@
 var eckhart = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expressions":3,"e":4,"EOF":5,"PUSH":6,"STORE":7,"LOAD":8,"JUMPGT":9,"ADD":10,"NUMBER":11,"STRING":12,"PRINTSTACK":13,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",6:"PUSH",7:"STORE",8:"LOAD",9:"JUMPGT",10:"ADD",11:"NUMBER",12:"STRING",13:"PRINTSTACK"},
-productions_: [0,[3,2],[3,1],[4,2],[4,2],[4,2],[4,2],[4,1],[4,1],[4,1],[4,1]],
+symbols_: {"error":2,"expressions":3,"e":4,"EOF":5,"PUSH":6,"JEQ":7,"ADD":8,"DUP":9,"JNE":10,"NUMBER":11,"STRING":12,"PRINTSTACK":13,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",6:"PUSH",7:"JEQ",8:"ADD",9:"DUP",10:"JNE",11:"NUMBER",12:"STRING",13:"PRINTSTACK"},
+productions_: [0,[3,2],[3,1],[4,2],[4,2],[4,1],[4,1],[4,2],[4,1],[4,1],[4,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -84,13 +84,13 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 3:this.$ = yy.push($$[$0]);
 break;
-case 4:this.$ = yy.store($$[$0]);
+case 4:this.$ = yy.jeq($$[$0]);
 break;
-case 5:this.$ = yy.load($$[$0]);
+case 5:this.$ = yy.add();
 break;
-case 6:this.$ = yy.jumpGt($$[$0]);
+case 6:this.$ = yy.dup();
 break;
-case 7:this.$ = yy.add();
+case 7:this.$ = yy.jne($$[$0]);
 break;
 case 8:this.$ = Number(yytext);
 break;
@@ -100,8 +100,8 @@ case 10:this.$ = yy.printstack();
 break;
 }
 },
-table: [{3:1,4:2,5:[1,3],6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{1:[3]},{5:[1,12]},{1:[2,2]},{4:13,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{4:14,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{4:15,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{4:16,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{5:[2,7]},{5:[2,8]},{5:[2,9]},{5:[2,10]},{1:[2,1]},{5:[2,3]},{5:[2,4]},{5:[2,5]},{5:[2,6]}],
-defaultActions: {3:[2,2],8:[2,7],9:[2,8],10:[2,9],11:[2,10],12:[2,1],13:[2,3],14:[2,4],15:[2,5],16:[2,6]},
+table: [{3:1,4:2,5:[1,3],6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{1:[3]},{5:[1,12]},{1:[2,2]},{4:13,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{4:14,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{5:[2,5]},{5:[2,6]},{4:15,6:[1,4],7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9],12:[1,10],13:[1,11]},{5:[2,8]},{5:[2,9]},{5:[2,10]},{1:[2,1]},{5:[2,3]},{5:[2,4]},{5:[2,7]}],
+defaultActions: {3:[2,2],6:[2,5],7:[2,6],9:[2,8],10:[2,9],11:[2,10],12:[2,1],13:[2,3],14:[2,4],15:[2,7]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -577,11 +577,11 @@ case 3:return 12;
 break;
 case 4:return 6;
 break;
-case 5:return 10;
+case 5:return 8;
 break;
 case 6:return 7;
 break;
-case 7:return 8;
+case 7:return 10;
 break;
 case 8:return 9;
 break;
@@ -591,7 +591,7 @@ case 10:return 5;
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:;.*)/,/^(?:-?[0-9]+)/,/^(?:"(\\.|[^"])*")/,/^(?:push\b)/,/^(?:add\b)/,/^(?:store\b)/,/^(?:load\b)/,/^(?:jumpgt\b)/,/^(?:printstack\b)/,/^(?:$)/],
+rules: [/^(?:\s+)/,/^(?:;.*)/,/^(?:-?[0-9]+)/,/^(?:"(\\.|[^"])*")/,/^(?:push\b)/,/^(?:add\b)/,/^(?:jeq\b)/,/^(?:jne\b)/,/^(?:dup\b)/,/^(?:printstack\b)/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10],"inclusive":true}}
 };
 return lexer;
